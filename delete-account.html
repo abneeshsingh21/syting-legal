@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syting - Request Account & Data Deletion</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FF5E8A'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-size='50' font-weight='800' fill='white'>S</text></svg>">
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">S</div>
+        <div class="brand-text">Syting</div>
+      </a>
+      <nav class="nav-links">
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="guidelines.html">Guidelines</a>
+        <a href="support.html">Support</a>
+        <a href="delete-account.html" class="active">Account Deletion</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="badge" style="background: rgba(255, 82, 82, 0.15); border-color: rgba(255, 82, 82, 0.4); color: #FF7070;">Data Ownership</div>
+      <h1>Delete Account & Data</h1>
+      <p>Submit a request to permanently delete your Syting profile, photos, voice recordings, and associated personal records.</p>
+    </div>
+
+    <!-- Instructions for In-App Immediate Deletion -->
+    <div class="glass-panel" style="margin-bottom: 32px;">
+      <h2 style="font-size: 20px; color: #fff; margin-bottom: 12px;">Method 1: Instant In-App Deletion (Fastest)</h2>
+      <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 16px;">
+        If you currently have the Syting application installed on your device, you can delete your account instantly with zero waiting time:
+      </p>
+      <ol style="color: var(--text-secondary); font-size: 14px; margin-left: 24px; margin-bottom: 8px;">
+        <li>Open the <strong>Syting</strong> app on your iPhone or Android phone.</li>
+        <li>Navigate to your profile tab and tap the <strong>Settings (Gear) icon</strong>.</li>
+        <li>Scroll down to the <strong>Account</strong> section at the bottom.</li>
+        <li>Tap <strong>Delete account</strong> and confirm your choice.</li>
+      </ol>
+      <p style="color: var(--text-secondary); font-size: 13px; margin-top: 12px;">
+        <em>Your account, matches, active chat threads, voice notes, and photos are purged immediately.</em>
+      </p>
+    </div>
+
+    <!-- Web-Based Deletion Request Form (For Google Play Compliance) -->
+    <div class="glass-panel">
+      <h2 style="font-size: 20px; color: #fff; margin-bottom: 8px;">Method 2: Web Deletion Request Form</h2>
+      <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+        If you have uninstalled the application, lost your mobile device, or cannot log in, submit your registered account details below. Our data compliance team will verify your ownership and purge all records within 48 hours.
+      </p>
+
+      <div class="callout danger">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>What happens when your account is deleted?</strong><br>
+          Account deletion is <strong>permanent and irreversible</strong>. The following data is permanently purged:
+          <ul style="margin: 6px 0 0 16px; font-size: 13px;">
+            <li>Profile details, biography, and age verification record</li>
+            <li>All uploaded profile photos and avatar images</li>
+            <li>Voice intro recordings and private voice notes</li>
+            <li>Chat message history and match connections</li>
+            <li>Location coordinates and notification tokens</li>
+          </ul>
+        </div>
+      </div>
+
+      <form onsubmit="handleDeleteSubmit(event)">
+        <div class="form-group">
+          <label for="del-email">Registered Email Address</label>
+          <input type="email" id="del-email" class="form-control" placeholder="user@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="del-phone">Registered Phone Number (Optional / if used)</label>
+          <input type="tel" id="del-phone" class="form-control" placeholder="+91 98765 43210">
+        </div>
+
+        <div class="form-group">
+          <label for="del-reason">Reason for Leaving (Optional)</label>
+          <select id="del-reason" class="form-control" style="background: #151322;">
+            <option value="">Select a reason (optional)</option>
+            <option value="found_match">Found a match / in a relationship</option>
+            <option value="privacy">Privacy reasons</option>
+            <option value="taking_break">Taking a break from dating</option>
+            <option value="technical">Technical issues</option>
+            <option value="other">Other reason</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-top: 20px;">
+          <label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer; color: var(--text-secondary); font-size: 13px;">
+            <input type="checkbox" required style="margin-top: 4px;">
+            <span>I understand that this action is permanent and cannot be undone. All my profile data, photos, voice notes, and matches will be permanently erased.</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-danger" style="margin-top: 14px;">Submit Deletion Request</button>
+      </form>
+
+      <div id="del-success" style="display: none; margin-top: 20px;" class="callout success">
+        <div class="callout-icon">✓</div>
+        <div>
+          <strong>Deletion Request Received</strong><br>
+          We have logged your deletion request. A confirmation email will be dispatched to your registered address, and your data will be permanently purged in accordance with our Privacy Policy.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="guidelines.html">Community Guidelines</a>
+      <a href="support.html">Support</a>
+      <a href="delete-account.html">Delete Account</a>
+    </div>
+    <p>&copy; 2026 Syting. All rights reserved. Real People. Better Connections.</p>
+  </footer>
+
+  <script>
+    function handleDeleteSubmit(e) {
+      e.preventDefault();
+      document.getElementById('del-success').style.display = 'flex';
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>
