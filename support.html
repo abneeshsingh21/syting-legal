@@ -51,7 +51,7 @@
           <span>▾</span>
         </button>
         <div class="faq-answer">
-          Syting uses on-device biometric liveness detection and date of birth validation to verify that you are a real person aged 18 or older. The camera check runs 100% locally on your phone—no photos or videos of the verification check are ever transmitted across the internet or stored on our servers. We store only your age range band (e.g. 25–34) and attach an authentic Verified badge to your profile.
+          Gestures are checked on your phone. A photo captured afterward is sent securely to our verification service and Google Gemini for an automated check. The app removes its temporary photo; we retain the age range and verification result. This combines a declared date of birth with camera checks and is not government identity verification or a guarantee of someone's age. Read our privacy policy before continuing.
         </div>
       </div>
 
@@ -61,7 +61,7 @@
           <span>▾</span>
         </button>
         <div class="faq-answer">
-          Navigate to <code>Settings &gt; Safety &gt; Safe Word</code> in the Syting app. Enter the names and phone numbers of up to 3 trusted personal contacts. You can record a test audio sample and send a test notification to ensure your contacts receive the alert. In a real emergency, triggering the Safe Word captures an audio snippet and immediately broadcasts your approximate location to your trusted contacts.
+          Open <code>Settings &gt; Safety &gt; Safe Word</code> to choose trusted contacts. Triggering the action can record microphone audio and opens an SMS composer with approximate location information when available. You must send the SMS yourself; opening the composer does not confirm delivery. Test the flow with consenting contacts. This feature does not contact emergency services or guarantee assistance.
         </div>
       </div>
 
@@ -94,17 +94,17 @@
     <div class="glass-panel" style="margin-bottom: 36px;">
       <h2 style="font-size: 22px; margin-bottom: 8px; color: #fff;">Contact Customer Support</h2>
       <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">
-        Need help with your account, encountered a bug, or have a question? Send our support team a message or email us directly at <a href="mailto:support@syting.app" style="color: var(--primary-pink);">support@syting.app</a>.
+        Need help with your account, encountered a bug, or have a question? Send our support team a message or email us directly at <a href="mailto:hello@asworks.studio" style="color: var(--primary-pink);">hello@asworks.studio</a>.
       </p>
 
       <form onsubmit="handleSupportSubmit(event)">
         <div class="form-group">
           <label for="sup-name">Your Full Name</label>
-          <input type="text" id="sup-name" class="form-control" placeholder="Jane Doe" required>
+          <input type="text" id="sup-name" maxlength="100" class="form-control" placeholder="Jane Doe" required>
         </div>
         <div class="form-group">
           <label for="sup-email">Registered Email or Phone</label>
-          <input type="text" id="sup-email" class="form-control" placeholder="jane@example.com or +91 98765 43210" required>
+          <input type="text" id="sup-email" maxlength="254" class="form-control" placeholder="jane@example.com or +91 98765 43210" required>
         </div>
         <div class="form-group">
           <label for="sup-category">Support Category</label>
@@ -119,15 +119,17 @@
         </div>
         <div class="form-group">
           <label for="sup-message">Description of your issue</label>
-          <textarea id="sup-message" class="form-control" placeholder="Please describe how we can assist you..." required></textarea>
+          <textarea id="sup-message" minlength="10" maxlength="4000" class="form-control" placeholder="Please describe how we can assist you..." required></textarea>
         </div>
+        <input id="sup-website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+        <p id="sup-status" role="status" aria-live="polite"></p>
         <button type="submit" class="btn-primary">Submit Support Request</button>
       </form>
       <div id="sup-success" style="display: none; margin-top: 18px;" class="callout success">
         <div class="callout-icon">✓</div>
         <div>
           <strong>Support Request Received!</strong><br>
-          Our support team will review your message and respond via email within 24 to 48 hours.
+          Your request has been recorded. Keep the reference shown below for follow-up. This is not an emergency service; response time depends on the issue.
         </div>
       </div>
     </div>
@@ -146,7 +148,7 @@
           <strong>Name:</strong> Officer of Grievances, Syting Operations<br>
           <strong>Designation:</strong> Chief Grievance &amp; Compliance Officer<br>
           <strong>Office Address:</strong> Syting Technology Pvt. Ltd., Level 4, DLF Cyber City, New Delhi, NCR, India<br>
-          <strong>Official Grievance Email:</strong> <a href="mailto:grievance@syting.app" style="color: var(--primary-pink); font-weight: 700;">grievance@syting.app</a>
+          <strong>Official Grievance Email:</strong> <a href="mailto:hello@asworks.studio" style="color: var(--primary-pink); font-weight: 700;">hello@asworks.studio</a>
         </div>
       </div>
 
@@ -178,10 +180,51 @@
       btn.querySelector('span').textContent = isVisible ? '▾' : '▴';
     }
 
-    function handleSupportSubmit(e) {
+    let supportRequestId = null;
+    let supportRequestBody = null;
+    async function handleSupportSubmit(e) {
       e.preventDefault();
-      document.getElementById('sup-success').style.display = 'flex';
-      e.target.reset();
+      const form = e.target;
+      const status = document.getElementById('sup-status');
+      const receiptPanel = document.getElementById('sup-success');
+      receiptPanel.style.display = 'none';
+      const button = form.querySelector('button[type="submit"]');
+      const fields = {
+        name: document.getElementById('sup-name').value.trim(),
+        contact: document.getElementById('sup-email').value.trim(),
+        category: document.getElementById('sup-category').value,
+        body: document.getElementById('sup-message').value.trim(),
+        website: document.getElementById('sup-website').value
+      };
+      const content = JSON.stringify(fields);
+      if (content !== supportRequestBody) {
+        supportRequestId = crypto.randomUUID();
+        supportRequestBody = content;
+      }
+      button.disabled = true;
+      status.textContent = 'Submitting your request…';
+      document.getElementById('sup-success').style.display = 'none';
+      try {
+        const response = await fetch('https://sowqmhfnufxupfqvdktn.supabase.co/functions/v1/public-support', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({...fields, id: supportRequestId}),
+          signal: AbortSignal.timeout(15000)
+        });
+        const result = await response.json();
+        if (!response.ok || !result.receipt_id) {
+          if (response.status === 409) supportRequestBody = null;
+          throw new Error(result.error || 'Your request was not confirmed. Please retry.');
+        }
+        status.textContent = 'Request recorded. Reference: ' + result.receipt_id + '. Keep this reference for follow-up.';
+        receiptPanel.style.display = 'flex';
+        form.reset();
+        supportRequestId = null;
+        supportRequestBody = null;
+      } catch (error) {
+        status.textContent = error instanceof Error ? error.message : 'Your request was not confirmed. Please retry.';
+      } finally {
+        button.disabled = false;
+      }
     }
   </script>
 </body>

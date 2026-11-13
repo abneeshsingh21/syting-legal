@@ -28,14 +28,14 @@
     <div class="hero">
       <div class="badge" style="background: rgba(255, 82, 82, 0.15); border-color: rgba(255, 82, 82, 0.4); color: #FF7070;">Data Ownership</div>
       <h1>Delete Account & Data</h1>
-      <p>Submit a request to permanently delete your Syting profile, photos, voice recordings, and associated personal records.</p>
+      <p>Request deletion of your Syting account and associated personal data, either in the app or by email.</p>
     </div>
 
     <!-- Instructions for In-App Immediate Deletion -->
     <div class="glass-panel" style="margin-bottom: 32px;">
-      <h2 style="font-size: 20px; color: #fff; margin-bottom: 12px;">Method 1: Instant In-App Deletion (Fastest)</h2>
+      <h2 style="font-size: 20px; color: #fff; margin-bottom: 12px;">Method 1: In-App Account Deletion</h2>
       <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 16px;">
-        If you currently have the Syting application installed on your device, you can delete your account instantly with zero waiting time:
+        If you currently have the Syting application installed on your device, you can request account deletion directly:
       </p>
       <ol style="color: var(--text-secondary); font-size: 14px; margin-left: 24px; margin-bottom: 8px;">
         <li>Open the <strong>Syting</strong> app on your iPhone or Android phone.</li>
@@ -44,22 +44,22 @@
         <li>Tap <strong>Delete account</strong> and confirm your choice.</li>
       </ol>
       <p style="color: var(--text-secondary); font-size: 13px; margin-top: 12px;">
-        <em>Your account, matches, active chat threads, voice notes, and photos are purged immediately.</em>
+        <em>Your account and profile are deleted after confirmation. Media cleanup is retried automatically if storage is temporarily unavailable.</em>
       </p>
     </div>
 
     <!-- Web-Based Deletion Request Form (For Google Play Compliance) -->
     <div class="glass-panel">
-      <h2 style="font-size: 20px; color: #fff; margin-bottom: 8px;">Method 2: Web Deletion Request Form</h2>
+      <h2 style="font-size: 20px; color: #fff; margin-bottom: 8px;">Method 2: Request deletion by email</h2>
       <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
-        If you have uninstalled the application, lost your mobile device, or cannot log in, submit your registered account details below. Our data compliance team will verify your ownership and purge all records within 48 hours.
+        If you have uninstalled the application, lost your mobile device, or cannot log in, submit your registered account details below. Send a request to hello@asworks.studio from your registered email address. We may need to verify account ownership before processing deletion; do not send passwords or identity documents in this form.
       </p>
 
       <div class="callout danger">
         <div class="callout-icon">⚠️</div>
         <div>
           <strong>What happens when your account is deleted?</strong><br>
-          Account deletion is <strong>permanent and irreversible</strong>. The following data is permanently purged:
+          Account deletion is <strong>permanent and irreversible</strong>. It removes your account and associated app data, including:
           <ul style="margin: 6px 0 0 16px; font-size: 13px;">
             <li>Profile details, biography, and age verification record</li>
             <li>All uploaded profile photos and avatar images</li>
@@ -70,15 +70,16 @@
         </div>
       </div>
 
+      <p>Email <a href="mailto:hello@asworks.studio?subject=Syting%20account%20deletion%20request">hello@asworks.studio</a> with the subject “Syting account deletion request” and your registered account email or phone number. The form below prepares an email; it does not submit data to a server. Send the email yourself to complete the request. No app installation or sign-in is needed to send an email request.</p>
       <form onsubmit="handleDeleteSubmit(event)">
         <div class="form-group">
           <label for="del-email">Registered Email Address</label>
-          <input type="email" id="del-email" class="form-control" placeholder="user@example.com" required>
+          <input type="email" maxlength="254" id="del-email" class="form-control" placeholder="user@example.com" required>
         </div>
 
         <div class="form-group">
           <label for="del-phone">Registered Phone Number (Optional / if used)</label>
-          <input type="tel" id="del-phone" class="form-control" placeholder="+91 98765 43210">
+          <input type="tel" maxlength="40" id="del-phone" class="form-control" placeholder="+91 98765 43210">
         </div>
 
         <div class="form-group">
@@ -96,18 +97,18 @@
         <div class="form-group" style="margin-top: 20px;">
           <label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer; color: var(--text-secondary); font-size: 13px;">
             <input type="checkbox" required style="margin-top: 4px;">
-            <span>I understand that this action is permanent and cannot be undone. All my profile data, photos, voice notes, and matches will be permanently erased.</span>
+            <span>I understand account deletion is permanent and cannot be undone, subject to the deletion scope and retention information in the Privacy Policy.</span>
           </label>
         </div>
 
-        <button type="submit" class="btn-danger" style="margin-top: 14px;">Submit Deletion Request</button>
+        <button type="submit" class="btn-danger" style="margin-top: 14px;">Prepare deletion email</button>
       </form>
 
-      <div id="del-success" style="display: none; margin-top: 20px;" class="callout success">
+      <div role="status" aria-live="polite" id="del-success" style="display: none; margin-top: 20px;" class="callout success">
         <div class="callout-icon">✓</div>
         <div>
-          <strong>Deletion Request Received</strong><br>
-          We have logged your deletion request. A confirmation email will be dispatched to your registered address, and your data will be permanently purged in accordance with our Privacy Policy.
+          <strong>Email prepared — not submitted</strong><br>
+          Send the pre-filled message to complete your request. If your email app did not open, email <a href="mailto:hello@asworks.studio">hello@asworks.studio</a> from your registered address. You can also delete your account instantly in the app: Settings → Account → Delete account. Submitting this form does not delete your account or confirm receipt. See our Privacy Policy for deletion scope and retention.
         </div>
       </div>
     </div>
@@ -127,8 +128,18 @@
   <script>
     function handleDeleteSubmit(e) {
       e.preventDefault();
+      var email = document.getElementById('del-email').value.trim();
+      var phone = document.getElementById('del-phone').value;
+      var reason = document.getElementById('del-reason').value;
+      var subject = encodeURIComponent('Syting account deletion request');
+      var body = encodeURIComponent(
+        'I request permanent deletion of my Syting account and all associated data.\n\n' +
+        'Registered email: ' + email + '\n' +
+        'Registered phone: ' + (phone || 'n/a') + '\n' +
+        'Reason: ' + (reason || 'n/a') + '\n'
+      );
+      window.location.href = 'mailto:hello@asworks.studio?subject=' + subject + '&body=' + body;
       document.getElementById('del-success').style.display = 'flex';
-      e.target.reset();
     }
   </script>
 </body>

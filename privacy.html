@@ -28,13 +28,13 @@
     <div class="hero">
       <div class="badge">Privacy & Protection</div>
       <h1>Privacy Policy</h1>
-      <p>How Syting safeguards your personal information, protects your privacy, and guarantees on-device security.</p>
-      <div class="last-updated">Effective Date: January 1, 2026 &bull; Last Revised: September 2026</div>
+      <p>How Syting collects, uses, stores, and protects your personal information.</p>
+      <div class="last-updated">Effective Date: January 1, 2026 &bull; Last Revised: October 25, 2026</div>
     </div>
 
     <div class="glass-panel prose">
       <h2>1. Introduction & Overview</h2>
-      <p>At Syting ("we," "our," or "us"), your privacy, safety, and personal dignity are fundamental to everything we build. This Privacy Policy details how we collect, process, store, and protect your personal information across the Syting mobile application on iOS and Android. This policy complies with international data privacy standards, including the <strong>General Data Protection Regulation (GDPR)</strong>, the <strong>California Consumer Privacy Act (CCPA)</strong>, and India's <strong>Digital Personal Data Protection Act, 2023 (DPDP Act)</strong>.</p>
+      <p>At Syting ("we," "our," or "us"), your privacy, safety, and personal dignity are fundamental to everything we build. This Privacy Policy details how we collect, process, store, and protect your personal information across the Syting mobile application on iOS and Android. Your privacy rights depend on your jurisdiction and applicable law. Contact <a href="mailto:hello@asworks.studio">hello@asworks.studio</a> with questions or requests about your personal data.</p>
 
       <h2>2. Information We Collect</h2>
       <p>We only collect information necessary to provide you with secure, authentic, and high-quality dating experiences:</p>
@@ -46,24 +46,24 @@
         <li><strong>Communications:</strong> Private messages, voice notes exchanged with matched partners, and feedback ratings submitted after dates.</li>
       </ul>
 
-      <h3>B. Age & Identity Verification Information (On-Device Privacy Guarantee)</h3>
-      <p>To eliminate automated bots and ensure our strict 18+ community policy is enforced, Syting employs on-device biometric selfie liveness verification and date of birth validation during onboarding:</p>
+      <h3>B. Self-Declared Age & Camera Checks</h3>
+      <p>Syting is for adults aged 18 and over. During onboarding, we use your declared date of birth and camera checks. These checks are trust signals; they do not establish government-verified identity or guarantee a person's age.</p>
       <div class="callout success">
         <div class="callout-icon">🛡️</div>
         <div>
-          <strong>OUR ZERO-DOCUMENT & ON-DEVICE PRIVACY GUARANTEE:</strong><br>
-          Syting <strong>DOES NOT</strong> harvest, sell, or permanently store raw biometric videos or sensitive identity documents. The liveness check runs entirely within your device's local memory to confirm you are a real human. We store only your age range band (e.g. 24–30) and a verification status badge (<code>age_verified = true</code>). Where digital or government-backed credential checks may be introduced, they operate strictly on a zero-knowledge confirmation basis without retaining raw identity paperwork.
+          <strong>HOW CAMERA INFORMATION IS PROCESSED:</strong><br>
+          Camera checks include on-device processing. A captured selfie and claimed age can also be sent through our server to Google Gemini for an anti-spoofing and adult-age plausibility assessment. The verification endpoint stores the age band, method, status, and timestamps rather than saving the raw capture to app storage. Provider processing is subject to its service terms. Aadhaar and DigiLocker verification are disabled in this release.
         </div>
       </div>
 
       <h3>C. Location Information</h3>
       <ul>
-        <li><strong>Discovery Distance:</strong> With your permission, Syting collects coarse location coordinates to calculate mutual distance between prospective matches. Your exact GPS coordinates are never made visible to other users.</li>
-        <li><strong>Safe Word Emergency Broadcast:</strong> Real-time precise GPS coordinates and emergency audio are shared <em>only</em> if you explicitly trigger the Safe Word panic feature, and are transmitted strictly to your pre-configured personal trusted contacts.</li>
+        <li><strong>Discovery Distance:</strong> With your permission, Syting reads your device location and sends a coarse geohash to support nearby discovery. Your exact GPS coordinates are never made visible to other users.</li>
+        <li><strong>Safe Word:</strong> When you explicitly trigger Safe Word and grant permissions, a location message can be opened in your phone's SMS composer for chosen trusted contacts. You control sending that message. Optional microphone audio is saved in private app storage for safety evidence. This feature does not automatically dispatch emergency services.</li>
       </ul>
 
       <h3>D. Video Dates (LiveKit WebRTC)</h3>
-      <p>Syting enables real-time video dates powered by LiveKit Cloud WebRTC technology. Video and audio streams are transmitted peer-to-peer over encrypted channels in real-time. <strong>Syting does not record, archive, or save video dates.</strong> Streams are completely ephemeral and cease existing the moment the call terminates.</p>
+      <p>Syting uses LiveKit infrastructure to transport live audio and video over encrypted WebRTC connections. The calling flow does not create call recordings. A separately activated Safe Word recording can capture microphone audio. Call invitations and call-history metadata are stored to support calling and delivery.</p>
 
       <h2>3. How We Use Your Information</h2>
       <p>We use your information exclusively for legitimate, authorized purposes:</p>
@@ -81,23 +81,27 @@
         <li><strong>Supabase Inc.:</strong> Cloud hosting, encrypted database (PostgreSQL with Row-Level Security), secure user authentication, and encrypted media storage.</li>
         <li><strong>LiveKit Cloud:</strong> Real-time encrypted WebRTC media transport infrastructure for video calls.</li>
         <li><strong>RevenueCat Inc.:</strong> In-app purchase receipt validation and subscription entitlement management.</li>
-        <li><strong>Firebase / Mixpanel:</strong> Anonymous crash diagnostics, product performance metrics, and push notifications.</li>
+        <li><strong>Firebase:</strong> Push notifications and crash diagnostics, which can include installation identifiers and technical device information.</li>
+        <li><strong>Mixpanel:</strong> Optional product analytics use a pseudonymous app account identifier and restricted event properties. Analytics starts only after opt-in. Conversation text, profile names, contact details, precise location, and arbitrary nested properties are excluded from analytics events.</li>
+        <li><strong>Google Gemini:</strong> Camera and profile-content safety assessments. AI Cupid initially offers general starters without sending chat context to a model. If you choose “Generate with chat context,” up to 10 recent messages and approved profile bio/interests can be shared for suggestions. Some identifiers are removed, but other personal details may remain. You review and send suggestions yourself.</li>
         <li><strong>Apple & Google:</strong> Platform-level authentication, app installation, and in-app payment processing.</li>
       </ul>
       <p><strong>We never sell your personal information or profile data to third-party data brokers, marketers, or advertisers.</strong></p>
 
       <h2>5. Data Retention & Permanent Account Deletion</h2>
-      <p>We retain your personal data only for as long as your account remains active. You have full ownership and control over your data:</p>
+      <p>We retain account data while needed to provide the service and handle applicable security, legal and deletion obligations. You have full ownership and control over your data:</p>
       <ul>
-        <li><strong>Instant In-App Deletion:</strong> You can delete your account at any time in the app by visiting <code>Settings &gt; Account &gt; Delete account</code>.</li>
-        <li><strong>Web-Based Deletion Portal:</strong> If you have uninstalled the app or lost device access, you can submit a deletion request via our web portal at <a href="delete-account.html" style="color: var(--primary-pink);">syting.app/delete-account</a>.</li>
-        <li><strong>Permanent Purge:</strong> Upon account deletion, all personal data—including your profile pictures, voice intro recordings, voice notes, chat logs, match history, and location data—is permanently deleted from our primary database and storage buckets within 30 days, except where retention is strictly required by statutory law (e.g. anti-fraud or financial records).</li>
+        <li><strong>In-App Deletion:</strong> You can delete your account at any time in the app by visiting <code>Settings &gt; Account &gt; Delete account</code>.</li>
+        <li><strong>Chat Attachments:</strong> A scheduled cleanup removes chat-media objects after seven days and replaces affected message content with expiration markers. Safety audio has a 30-day cleanup period.</li>
+        <li><strong>Local Offline Chat, Where Enabled:</strong> Outgoing messages, owned attachments, drafts, and recent chat snapshots use encrypted, account-scoped device storage. Pending messages and drafts are available for up to seven days; expired entries are removed when the account's store next opens or retries. Signing into another account does not expose them. Server acceptance removes queued attachment copies. Device encryption does not make server-accessible chats end-to-end encrypted.</li>
+        <li><strong>Deletion Without the App:</strong> Visit our <a href="delete-account.html" style="color: var(--primary-pink);">account-deletion page</a> for instructions, or email <a href="mailto:hello@asworks.studio?subject=Syting%20account%20deletion%20request">hello@asworks.studio</a> from your registered address. The page prepares an email; you must send it yourself. Account ownership may need to be verified.</li>
+        <li><strong>Deletion Scope:</strong> The in-app flow removes your account and associated profile records, photos, voice introductions, chat media and app records. Email requests are processed after ownership verification. Data held by external service providers, backups and any legally required retention can follow separate schedules. Contact us for details; a web form alone does not delete your account.</li>
       </ul>
 
       <h2>6. Security Safeguards</h2>
       <p>We employ enterprise-grade security controls to protect your data:</p>
       <ul>
-        <li>All network communications are encrypted in transit using Transport Layer Security (TLS 1.3).</li>
+        <li>The app uses HTTPS for backend requests and encrypted WebRTC transport for calls. This does not mean stored messages are end-to-end encrypted.</li>
         <li>Database records are protected by granular PostgreSQL Row-Level Security (RLS) policies, preventing unauthorized read or write access.</li>
         <li>Profile photos and audio notes are stored in secure object buckets protected by time-limited signed access URLs.</li>
       </ul>
@@ -107,7 +111,7 @@
       <ul>
         <li><strong>Right to Access:</strong> You can request a copy of the personal data we hold about you.</li>
         <li><strong>Right to Rectification:</strong> You can edit and update your profile information at any time within the app settings.</li>
-        <li><strong>Right to Erasure ("Right to be Forgotten"):</strong> You have the unconditional right to have your account and all associated personal data erased permanently.</li>
+        <li><strong>Right to Erasure ("Right to be Forgotten"):</strong> You can request account deletion in the app or by emailing hello@asworks.studio. Account ownership may need to be verified before an email request is processed; retention required by applicable law may still apply.</li>
         <li><strong>Right to Withdraw Consent:</strong> You may revoke location or camera permissions at any time via your device operating system settings.</li>
       </ul>
 
@@ -115,7 +119,7 @@
       <p>If you have any questions, requests, or concerns regarding your privacy or this Policy, please contact our Data Protection Team at:</p>
       <p>
         <strong>Syting Privacy & Data Protection Office</strong><br>
-        Email: <a href="mailto:privacy@syting.app" style="color: var(--primary-pink);">privacy@syting.app</a><br>
+        Email: <a href="mailto:hello@asworks.studio" style="color: var(--primary-pink);">hello@asworks.studio</a><br>
         New Delhi, India
       </p>
     </div>
