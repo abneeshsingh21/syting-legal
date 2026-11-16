@@ -52,7 +52,7 @@
         <div class="callout-icon">🛡️</div>
         <div>
           <strong>HOW CAMERA INFORMATION IS PROCESSED:</strong><br>
-          Camera checks include on-device processing. A captured selfie and claimed age can also be sent through our server to Google Gemini for an anti-spoofing and adult-age plausibility assessment. The verification endpoint stores the age band, method, status, and timestamps rather than saving the raw capture to app storage. Provider processing is subject to its service terms. Aadhaar and DigiLocker verification are disabled in this release.
+          Normal onboarding uses your declared date of birth and an on-device Google ML Kit face-presence and simple-gesture check. It sends a basic completion report to our server, not a selfie. This is not independent proof of age, identity, or spoof resistance. The server keeps an age band, completion status, method, and timestamps rather than a raw camera photo. Aadhaar and DigiLocker verification are disabled in this release.
         </div>
       </div>
 
@@ -83,7 +83,7 @@
         <li><strong>RevenueCat Inc.:</strong> In-app purchase receipt validation and subscription entitlement management.</li>
         <li><strong>Firebase:</strong> Push notifications and crash diagnostics, which can include installation identifiers and technical device information.</li>
         <li><strong>Mixpanel:</strong> Optional product analytics use a pseudonymous app account identifier and restricted event properties. Analytics starts only after opt-in. Conversation text, profile names, contact details, precise location, and arbitrary nested properties are excluded from analytics events.</li>
-        <li><strong>Google Gemini:</strong> Camera and profile-content safety assessments. AI Cupid initially offers general starters without sending chat context to a model. If you choose “Generate with chat context,” up to 10 recent messages and approved profile bio/interests can be shared for suggestions. Some identifiers are removed, but other personal details may remain. You review and send suggestions yourself.</li>
+        <li><strong>Google Gemini:</strong> Optional profile-content safety assessments and chat suggestions, only when our paid-project safeguard permits use. With the provider disabled, normal text uses local safety rules, uncertain photos stay pending for review, and chat suggestions use local starters. Normal onboarding does not send camera photos to Gemini. AI Cupid initially offers general starters without sending chat context to a model. If you choose “Generate with chat context,” up to 10 recent messages and approved profile bio/interests can be shared for suggestions. Some identifiers are removed, but other personal details may remain. You review and send suggestions yourself.</li>
         <li><strong>Apple & Google:</strong> Platform-level authentication, app installation, and in-app payment processing.</li>
       </ul>
       <p><strong>We never sell your personal information or profile data to third-party data brokers, marketers, or advertisers.</strong></p>
